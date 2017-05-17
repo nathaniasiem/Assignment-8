@@ -27,7 +27,7 @@ public class Mario_practice extends JComponent {
 
     // GAME VARIABLES WOULD GO HERE
     Color brown =new Color (150,138,0);
-
+    
 
     // GAME VARIABLES END HERE   
 
@@ -40,16 +40,21 @@ public class Mario_practice extends JComponent {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
+        //draw hat
         g.setColor(Color.red);
-        g.fillRect(350,200,50,20);
-        g.fillRect(340,210,80,10);
+        g.fillRect(350, 200, 50, 20);
+        g.fillRect(340, 210, 80, 10);
         g.setColor(brown);
-        g.fillRect(350,230,20,10);
-        g.fillRect(350,240,10,20);
-        g.fillRect(350,240,20,10);
-        g.fillRect(330,250,10,20);
-        g.fillRect(330,260,20,10);
-        g.fillRect(400,220,10,20);
+        //draw hair and eyes
+        g.fillRect(340, 220, 30, 10);
+        g.fillRect(350, 220, 10, 30);
+        g.fillRect(350, 250, 30, 10);
+        g.fillRect(390, 220, 10, 20);
+        g.fillRect(330, 230, 10, 40);
+        g.fillRect(330, 260, 20, 10);
+        g.fillRect(400, 240, 10, 20);
+        g.fillRect(390, 250, 40, 10);
+        
         // GAME DRAWING ENDS HERE
     }
 
