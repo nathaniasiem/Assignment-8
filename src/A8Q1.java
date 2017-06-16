@@ -1,4 +1,5 @@
 
+import static A8Q1.WIDTH;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -58,8 +59,8 @@ public class A8Q1 extends JComponent {
         frame.setVisible(true);
         
         // add listeners for keyboard and mouse
-        frame.addKeyListener(new Keyboard());
-        Mouse m = new Mouse();
+        frame.addKeyListener(new A8Q1.Keyboard());
+        A8Q1.Mouse m = new A8Q1.Mouse();
         
         this.addMouseMotionListener(m);
         this.addMouseWheelListener(m);
