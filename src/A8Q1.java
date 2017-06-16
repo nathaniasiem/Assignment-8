@@ -1,23 +1,27 @@
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 /**
  *
  * @author simon7323
  */
-public class Mario_practice extends JComponent {
+public class A8Q1 extends JComponent {
 
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
+    
+    //Title of the window
+    String title = "Animated Face";
 
     // sets the framerate and delay for our game
     // you just need to select an approproate framerate
@@ -25,13 +29,43 @@ public class Mario_practice extends JComponent {
     long desiredTime = (1000) / desiredFPS;
 
 
-    // GAME VARIABLES WOULD GO HERE
-    Color brown =new Color (150,138,0);
-    Color peach =new Color (255,225,186);
+    // YOUR GAME VARIABLES WOULD GO HERE
+    boolean eye =false;
+    int eye1 =300;
+    int direction = 1;
+    
     
 
     // GAME VARIABLES END HERE   
 
+    
+    // Constructor to create the Frame and place the panel in
+    // You will learn more about this in Grade 12 :)
+    public A8Q1(){
+        // creates a windows to show my game
+        JFrame frame = new JFrame(title);
+
+        // sets the size of my game
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        // adds the game to the window
+        frame.add(this);
+
+        // sets some options and size of the window automatically
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        // shows the window to the user
+        frame.setVisible(true);
+        
+        // add listeners for keyboard and mouse
+        frame.addKeyListener(new Keyboard());
+        Mouse m = new Mouse();
+        
+        this.addMouseMotionListener(m);
+        this.addMouseWheelListener(m);
+        this.addMouseListener(m);
+    }
+    
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
@@ -41,34 +75,19 @@ public class Mario_practice extends JComponent {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
-        //draw hat
+        g.setColor(Color.YELLOW);
+        g.fillOval(250,200,300,300);
+        g.setColor(Color.WHITE);
+        g.fillOval(300,250,50,100);
+        g.fillOval(400,250,50,100);
+        g.setColor(Color.BLACK);
+        g.fillOval(300,eye1,50,50);
+        g.fillOval(400,300,50,50);
+        g.setColor(Color.WHITE);
+        g.fillArc(310,320,150,150, 180,180 );
         g.setColor(Color.red);
-        g.fillRect(350, 200, 50, 20);
-        g.fillRect(340, 210, 80, 10);
-       
-        //draw hair and eyes
-        g.setColor(brown);
-        g.fillRect(340, 220, 30, 10);
-        g.fillRect(350, 220, 10, 30);
-        g.fillRect(350, 250, 30, 10);
-        g.fillRect(390, 220, 10, 20);
-        g.fillRect(330, 230, 10, 40);
-        g.fillRect(330, 260, 20, 10);
-        g.fillRect(400, 240, 10, 20);
-        g.fillRect(390, 250, 50, 10);
-        //draw head
-        g.setColor(peach);
-        g.fillRect(340,230,10,30);
-        g.fillRect(360,250,30,10);
-        g.fillRect(350,260,70,10);
-        g.fillRect(350,270,50,10);
-        g.fillRect(360,230,10,30);
-        g.fillRect(370,220,10,40);
-        g.fillRect(380,220,10,30);
-        g.fillRect(390,240,10,10);
-        g.fillRect(400,220,10,20);
-        g.fillRect(410,230,10,10);
-        g.fillRect(410,240,20,10);
+        g.fillOval(340,440,70,30);
+        g.fillOval(340,440,60,30);
         // GAME DRAWING ENDS HERE
     }
 
@@ -78,6 +97,7 @@ public class Mario_practice extends JComponent {
     public void  preSetup(){
        // Any of your pre setup before the loop starts should go here
 
+       
     }
 
     // The main game loop
@@ -99,6 +119,13 @@ public class Mario_practice extends JComponent {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
+             if(eye1>=100){
+                 direction= -1;
+            }if(eye1<150){
+                direction = 1;
+               eye1=eye1+direction*2;
+            
+            }
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
             repaint();
@@ -119,37 +146,10 @@ public class Mario_practice extends JComponent {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // creates a windows to show my game
-        JFrame frame = new JFrame("My Game");
-
-        // creates an instance of my game
-        Mario_practice game = new Mario_practice();
-        // sets the size of my game
-        game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        // adds the game to the window
-        frame.add(game);
-
-        // sets some options and size of the window automatically
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        // shows the window to the user
-        frame.setVisible(true);
-        
-        // add listeners for keyboard and mouse
-        frame.addKeyListener(new Keyboard());
-        game.addMouseListener(new Mouse());
-        
-        // starts the game loop
-        game.run();
-    }
+    
 
     // Used to implement any of the Mouse Actions
-    private static class Mouse extends MouseAdapter {
+    private class Mouse extends MouseAdapter {
         // if a mouse button has been pressed down
         @Override
         public void mousePressed(MouseEvent e){
@@ -162,6 +162,12 @@ public class Mario_practice extends JComponent {
             
         }
         
+        // if the scroll wheel has been moved
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e){
+            
+        }
+
         // if the mouse has moved positions
         @Override
         public void mouseMoved(MouseEvent e){
@@ -170,7 +176,7 @@ public class Mario_practice extends JComponent {
     }
     
     // Used to implements any of the Keyboard Actions
-    private static class Keyboard extends KeyAdapter{
+    private class Keyboard extends KeyAdapter{
         // if a key has been pressed down
         @Override
         public void keyPressed(KeyEvent e){
@@ -182,5 +188,17 @@ public class Mario_practice extends JComponent {
         public void keyReleased(KeyEvent e){
             
         }
+    }
+    
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // creates an instance of my game
+        A8Q1 game = new A8Q1();
+                
+        // starts the game loop
+        game.run();
     }
 }
