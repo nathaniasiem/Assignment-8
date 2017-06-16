@@ -1,5 +1,4 @@
 
-import static A8Q1.WIDTH;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
